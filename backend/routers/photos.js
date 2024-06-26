@@ -23,8 +23,6 @@ const upload = multer({ storage });
 
 router.get('/', index);
 
-router.use(authenticateToken);
-
 router.get('/:id', show);
 
 router.post('/', upload.single("image"), store);
