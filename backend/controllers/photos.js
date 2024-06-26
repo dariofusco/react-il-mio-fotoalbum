@@ -8,16 +8,15 @@ const deletePic = require("../utils/deletePic.js");
 
 const store = async (req, res) => {
 
-    const { title, description, categoryId, visible } = req.body;
+    const { title, description, categories, visible } = req.body;
 
     const data = {
         title,
         description,
-        visible: Boolean(visible)
-    }
-
-    if (categoryId) {
-        data.categoryId = parseInt(categoryId);
+        visible: visible === "true",
+        categories: {
+            connect: categories.map(category => ({ id: Number(category) }))
+        }
     }
 
     if (req.file) {
@@ -52,6 +51,14 @@ const index = async (req, res) => {
                     createdAt: 'desc'
                 }
             ],
+            include: {
+                categories: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
+            }
         });
 
         res.json({
@@ -68,8 +75,9 @@ const show = async (req, res) => {
         const photo = await prisma.photo.findUnique({
             where: { id },
             include: {
-                category: {
+                categories: {
                     select: {
+                        id: true,
                         name: true
                     }
                 }
@@ -88,16 +96,15 @@ const show = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, categoryId, visible } = req.body;
+        const { title, description, categories, visible } = req.body;
 
         const data = {
             title,
             description,
-            visible: Boolean(visible)
-        }
-
-        if (categoryId) {
-            data.categoryId = parseInt(categoryId);
+            visible: visible === "true",
+            categories: {
+                set: categories.map(id => ({ id }))
+            }
         }
 
         if (req.file) {
