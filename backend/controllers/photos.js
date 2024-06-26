@@ -66,7 +66,26 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
-
+    try {
+        const id = parseInt(req.params.id);
+        const photo = await prisma.photo.findUnique({
+            where: { id },
+            include: {
+                category: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+        if (photo) {
+            res.json(photo);
+        } else {
+            res.json(`Foto con id ${id} non trovata.`);
+        }
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 const update = async (req, res) => {

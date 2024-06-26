@@ -25,7 +25,19 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
-
+    try {
+        const id = parseInt(req.params.id);
+        const category = await prisma.category.findUnique({
+            where: { id }
+        });
+        if (category) {
+            res.json(category);
+        } else {
+            res.json(`Categoria con id ${id} non trovata.`);
+        }
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 const update = async (req, res) => {
