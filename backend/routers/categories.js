@@ -7,14 +7,16 @@ const {
     update,
     destroy
 } = require('../controllers/categories.js');
+const { bodyData } = require('../validations/categories.js');
+const validator = require('../middlewares/validator.js');
 
-router.post('/', store);
+router.post('/', validator(bodyData), store);
 
 router.get('/', index);
 
 router.get('/:id', show);
 
-router.put('/:id', update);
+router.put('/:id', validator(bodyData), update);
 
 router.delete('/:id', destroy);
 

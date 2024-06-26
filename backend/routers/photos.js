@@ -10,6 +10,8 @@ const {
 const authenticateToken = require('../middlewares/auth.js');
 const multer = require("multer");
 const path = require("path");
+const validator = require('../middlewares/validator.js');
+const { bodyData } = require('../validations/photos.js');
 
 const storage = multer.diskStorage({
     destination: "public",
@@ -27,9 +29,9 @@ router.use(authenticateToken);
 
 router.get('/:id', show);
 
-router.post('/', upload.single("image"), store);
+router.post('/', upload.single("image"), validator(bodyData), store);
 
-router.put('/:id', upload.single("image"), update);
+router.put('/:id', upload.single("image"), validator(bodyData), update);
 
 router.delete('/:id', destroy);
 
