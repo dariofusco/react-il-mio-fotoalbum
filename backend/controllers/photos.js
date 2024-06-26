@@ -8,12 +8,12 @@ const deletePic = require("../utils/deletePic.js");
 
 const store = async (req, res) => {
 
-    const { title, description, categoryId } = req.body;
+    const { title, description, categoryId, visible } = req.body;
 
     const data = {
         title,
         description,
-        visible: Boolean(req.body.avaiable)
+        visible: Boolean(visible)
     }
 
     if (categoryId) {
@@ -91,12 +91,12 @@ const show = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, categoryId } = req.body;
+        const { title, description, categoryId, visible } = req.body;
 
         const data = {
             title,
             description,
-            visible: Boolean(req.body.avaiable)
+            visible: Boolean(visible)
         }
 
         if (categoryId) {
@@ -113,15 +113,20 @@ const update = async (req, res) => {
         });
         res.json(photo);
     } catch (err) {
-        if (req.file) {
-            deletePic('public', req.file.filename);
-        }
         errorHandler(err, req, res);
     }
 }
 
 const destroy = async (req, res) => {
-
+    try {
+        const { id } = req.params;
+        await prisma.photo.delete({
+            where: { id: parseInt(id) },
+        });
+        res.json(`Foto con id ${id} eliminata con successo.`);
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 module.exports = {

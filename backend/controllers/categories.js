@@ -54,7 +54,15 @@ const update = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
-
+    try {
+        const id = parseInt(req.params.id);
+        await prisma.category.delete({
+            where: { id },
+        });
+        res.json(`Categoria con id ${id} eliminata con successo.`);
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 module.exports = {
