@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-module.exports = (picFolder, filename) => {
+module.exports = (filename) => {
     try {
-        const filePath = path.join(__dirname, `../${picFolder}/` + filename);
+        const filePath = path.join(__dirname, '../public/' + filename);
         fs.unlinkSync(filePath);
     }
     catch (err) {

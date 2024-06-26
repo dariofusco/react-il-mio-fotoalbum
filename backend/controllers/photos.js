@@ -4,7 +4,7 @@ require("dotenv").config();
 const { PORT, HOST } = process.env;
 const port = PORT || 3000;
 const errorHandler = require("../middlewares/errorHandler.js");
-const deletePic = require("../utils/deletePic.js");
+const deleteImage = require("../utils/deleteImage.js");
 
 const store = async (req, res) => {
 
@@ -20,7 +20,7 @@ const store = async (req, res) => {
     }
 
     if (req.file) {
-        data.image = `${HOST}:${port}/public/${req.file.filename}`;
+        data.image = req.file.filename;
     }
 
     try {
@@ -28,7 +28,7 @@ const store = async (req, res) => {
         res.status(200).send(photo);
     } catch (err) {
         if (req.file) {
-            deletePic('public', req.file.filename);
+            deleteImage(req.file.filename);
         }
         errorHandler(err, req, res);
     }
@@ -124,9 +124,10 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
     try {
         const { id } = req.params;
-        await prisma.photo.delete({
+        const photoDeleted = await prisma.photo.delete({
             where: { id: parseInt(id) },
         });
+        deleteImage(photoDeleted.image)
         res.json(`Foto con id ${id} eliminata con successo.`);
     } catch (err) {
         errorHandler(err, req, res);
