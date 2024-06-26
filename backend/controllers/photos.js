@@ -13,7 +13,7 @@ const store = async (req, res) => {
     const data = {
         title,
         description,
-        visible: req.body.visible ? true : false
+        visible: Boolean(req.body.avaiable)
     }
 
     if (categoryId) {
@@ -89,7 +89,32 @@ const show = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, description, categoryId } = req.body;
 
+        const data = {
+            title,
+            description,
+            visible: Boolean(req.body.avaiable)
+        }
+
+        if (categoryId) {
+            data.categoryId = parseInt(categoryId);
+        }
+
+        if (req.file) {
+            data.image = `${HOST}:${port}/public/${req.file.filename}`;
+        }
+
+        const photo = await prisma.photo.update({
+            where: { id: parseInt(id) },
+            data,
+        });
+        res.json(photo);
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 const destroy = async (req, res) => {
