@@ -16,7 +16,12 @@ const store = async (req, res) => {
 }
 
 const index = async (req, res) => {
-
+    try {
+        const categories = await prisma.category.findMany();
+        res.json(categories);
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 const show = async (req, res) => {

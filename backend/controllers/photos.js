@@ -39,7 +39,30 @@ const store = async (req, res) => {
 }
 
 const index = async (req, res) => {
+    try {
+        const where = {};
+        const { available } = req.query;
+        if (available === 'true') {
+            where.available = true
+        } else if (available === 'false') {
+            where.available = false
+        }
 
+        const photos = await prisma.photo.findMany({
+            where,
+            orderBy: [
+                {
+                    createdAt: 'desc'
+                }
+            ],
+        });
+
+        res.json({
+            data: photos.map(photo => (photo)),
+        });
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 const show = async (req, res) => {
