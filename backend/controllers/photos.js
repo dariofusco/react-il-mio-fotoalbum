@@ -25,9 +25,7 @@ const store = async (req, res) => {
     }
 
     try {
-        const photo = await prisma.photo.create({
-            data,
-        });
+        const photo = await prisma.photo.create({ data });
         res.status(200).send(photo);
     } catch (err) {
         if (req.file) {
@@ -35,17 +33,16 @@ const store = async (req, res) => {
         }
         errorHandler(err, req, res);
     }
-
 }
 
 const index = async (req, res) => {
     try {
         const where = {};
-        const { available } = req.query;
-        if (available === 'true') {
-            where.available = true
-        } else if (available === 'false') {
-            where.available = false
+        const { visible } = req.query;
+        if (visible === 'true') {
+            where.visible = true
+        } else if (visible === 'false') {
+            where.visible = false
         }
 
         const photos = await prisma.photo.findMany({
