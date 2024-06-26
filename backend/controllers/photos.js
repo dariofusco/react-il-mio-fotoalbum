@@ -113,6 +113,9 @@ const update = async (req, res) => {
         });
         res.json(photo);
     } catch (err) {
+        if (req.file) {
+            deletePic('public', req.file.filename);
+        }
         errorHandler(err, req, res);
     }
 }

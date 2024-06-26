@@ -41,7 +41,16 @@ const show = async (req, res) => {
 }
 
 const update = async (req, res) => {
-
+    try {
+        const id = parseInt(req.params.id);
+        const category = await prisma.category.update({
+            where: { id },
+            data: req.body,
+        });
+        res.json(category);
+    } catch (err) {
+        errorHandler(err, req, res);
+    }
 }
 
 const destroy = async (req, res) => {
