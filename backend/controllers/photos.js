@@ -1,8 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 require("dotenv").config();
-const { PORT, HOST } = process.env;
-const port = PORT || 3000;
 const errorHandler = require("../middlewares/errorHandler.js");
 const deleteImage = require("../utils/deleteImage.js");
 
@@ -13,7 +11,7 @@ const store = async (req, res) => {
     const data = {
         title,
         description,
-        visible: visible === "true",
+        visible,
         categories: {
             connect: categories.map(category => ({ id: Number(category) }))
         }
@@ -86,7 +84,7 @@ const show = async (req, res) => {
         if (photo) {
             res.json(photo);
         } else {
-            res.json(`Foto con id ${id} non trovata.`);
+            res.status(404).json(`Foto con id ${id} non trovata.`);
         }
     } catch (err) {
         errorHandler(err, req, res);
@@ -101,14 +99,14 @@ const update = async (req, res) => {
         const data = {
             title,
             description,
-            visible: visible === "true",
+            visible,
             categories: {
                 set: categories.map(id => ({ id }))
             }
         }
 
         if (req.file) {
-            data.image = `${HOST}:${port}/public/${req.file.filename}`;
+            data.image = req.file.filename;
         }
 
         const photo = await prisma.photo.update({
