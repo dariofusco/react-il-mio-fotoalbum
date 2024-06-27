@@ -55,7 +55,7 @@ export default function ({ initialData, onSubmit }) {
                 <input
                     type="text"
                     value={formData.description}
-                    onChange={event => handleField('content', event.target.value)}
+                    onChange={event => handleField('description', event.target.value)}
                 />
             </div>
 

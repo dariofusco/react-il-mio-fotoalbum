@@ -18,12 +18,18 @@ export default function () {
 
     const navigate = useNavigate();
 
+    const deletePhoto = async id => {
+        await axios.delete(`http://localhost:3000/photos/${id}`);
+        navigate('/photos');
+    }
+
     return (<>
         <div>
             <h1>Show Page</h1>
         </div>
 
         <Link to="/photos" relative="path">Indietro</Link>
+
         {photo && <Card
             id={photo.id}
             title={photo.title}
@@ -31,6 +37,7 @@ export default function () {
             image={photo.image}
             categories={photo?.categories ?? []}
             visible={photo.visible}
+            onDelete={deletePhoto}
         />}
     </>)
 }
