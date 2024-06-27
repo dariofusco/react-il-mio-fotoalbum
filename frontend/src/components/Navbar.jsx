@@ -8,7 +8,7 @@ export default function () {
     return (
         <header>
             <nav className="navbar">
-                <menu>
+                <ul>
                     <li>
                         <NavLink to="/">Home</NavLink>
                     </li>
@@ -26,7 +26,7 @@ export default function () {
                     {isLoggedIn &&
                         <li><a href="#" onClick={logout}>LogOut</a></li>
                     }
-                </menu>
+                </ul>
             </nav>
         </header>
     )

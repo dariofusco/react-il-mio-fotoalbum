@@ -12,15 +12,19 @@ export default function ({ id, title, description, image, categories, visible, o
             {image &&
                 <img src={`http://localhost:3000/${image}`} alt={title} />
             }
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <div className="badge">
+            <div className="container">
+                <h3>{title}</h3>
+                <p>{description}</p>
+
                 {categories.map((category, index) => (
-                    <span className="tag" key={index}>{category.name}</span>
+                    <span className="badge" key={index}>{category.name}</span>
                 ))}
+
+                <div>
+                    <Link to={`/photos/${id}/edit`}>Modifica</Link>
+                    <button onClick={deletePhoto}><FaTrashAlt /></button>
+                </div>
             </div>
-            <button onClick={deletePhoto}><FaTrashAlt /></button>
-            <Link to={`/photos/${id}/edit`}>Modifica</Link>
         </div>
     )
 }
