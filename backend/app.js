@@ -3,6 +3,7 @@ const app = express();
 const photosRouter = require("./routers/photos.js");
 const categoriesRouter = require("./routers/categories.js");
 const authRouter = require("./routers/auth.js");
+const messagesRouter = require("./routers/messages.js");
 const errorHandler = require("./middlewares/errorHandler.js");
 require("dotenv").config();
 const { PORT, HOST } = process.env;
@@ -24,6 +25,8 @@ app.use('/auth', authRouter);
 app.use('/photos', photosRouter);
 
 app.use('/categories', categoriesRouter);
+
+app.use('/messages', messagesRouter);
 
 app.use(errorHandler);
 
