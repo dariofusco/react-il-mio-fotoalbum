@@ -1,9 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const defaultFormData = {
+    title: '',
+    description: '',
+    image: '',
+    categories: [],
+    visible: false
+};
+
 export default function ({ initialData, onSubmit }) {
 
     const [categories, setCategories] = useState([]);
+    
+    const [formData, setFormData] = useState(defaultFormData);
+
     const fetchCategories = async () => {
         const { data: array } = await axios.get('http://localhost:3000/categories');
         setCategories(array);
@@ -14,15 +25,11 @@ export default function ({ initialData, onSubmit }) {
         fetchCategories();
     }, [])
 
-    const defaultData = initialData || {
-        title: '',
-        description: '',
-        image: '',
-        categories: [],
-        visible: false
-    }
-
-    const [formData, setFormData] = useState(defaultData);
+    useEffect(() => {
+        if(initialData) {
+            setFormData(initialData)
+        }
+    }, [initialData])
 
     const handleField = (name, value) => {
 

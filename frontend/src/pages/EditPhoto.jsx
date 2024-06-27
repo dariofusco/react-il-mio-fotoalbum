@@ -13,7 +13,6 @@ export default function () {
 
     const fetchDataToEdit = async () => {
         const { data: p } = await axios.get(`http://localhost:3000/photos/${id}`);
-
         setDataToEdit({
             title: p.title,
             description: p.description,
@@ -21,7 +20,6 @@ export default function () {
             categories: p.categories.map(i => i.id),
             visible: p.visible
         });
-        console.log(dataToEdit);
     }
 
     useEffect(() => {
@@ -50,10 +48,9 @@ export default function () {
         </div>
 
         <Link to="../" relative="path">Annulla</Link>
-
-        <Form
+        {dataToEdit !== null && <Form
             initialData={dataToEdit}
             onSubmit={updatePhoto}
-        />
+        />}
     </>)
 }
