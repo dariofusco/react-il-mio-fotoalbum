@@ -23,6 +23,8 @@ export default function () {
             <h1>Index Page</h1>
         </div>
 
+        <Link to="/">Indietro</Link>
+
         <ul>
             {photos.map(photo => (
                 <li key={photo.id}>
