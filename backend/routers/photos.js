@@ -25,7 +25,7 @@ const upload = multer({ storage });
 
 router.get('/', index);
 
-router.use(authenticateToken);
+// router.use(authenticateToken);
 
 router.get('/:id', show);
 
