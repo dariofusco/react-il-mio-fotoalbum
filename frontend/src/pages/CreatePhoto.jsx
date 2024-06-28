@@ -24,7 +24,6 @@ export default function () {
         </div>
 
         <div>
-            <Link to="/">Indietro</Link>
             <Form
                 onSubmit={createPhoto}
             />

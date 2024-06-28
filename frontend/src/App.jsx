@@ -9,6 +9,8 @@ import DefaultLayout from "./layouts/DefaultLayout";
 import { AuthProvider } from "./contexts/AuthContext";
 import LogIn from "./pages/Login";
 import PrivatePage from "./middleware/PrivatePage";
+import Categories from "./pages/Categories";
+import CreateCategory from "./pages/CreateCategory";
 
 function App() {
 
@@ -26,6 +28,8 @@ function App() {
               <Route path="login" element={<LogIn />} />
               <Route path="photos" element={<Photos />} />
               <Route path="/photos/:id" element={<SinglePhoto />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="/categories/create" element={<CreateCategory />} />
             </Route>
 
             {/* Rotte Private */}

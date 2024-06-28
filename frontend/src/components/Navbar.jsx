@@ -24,7 +24,12 @@ export default function () {
                         </li>
                     }
                     {isLoggedIn &&
-                        <li><a href="#" onClick={logout}>LogOut</a></li>
+                        <>
+                            <li>
+                                <NavLink to="/categories">Categories</NavLink>
+                            </li>
+                            <li><a href="#" onClick={logout}>LogOut</a></li>
+                        </>
                     }
                 </ul>
             </nav>
