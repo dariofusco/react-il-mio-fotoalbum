@@ -1,16 +1,18 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home"
-import Photos from "./pages/Photos"
-import SinglePhoto from "./pages/SinglePhoto"
-import CreatePhoto from "./pages/CreatePhoto"
-import EditPhoto from "./pages/EditPhoto"
+import Home from "./pages/Home";
+import Photos from "./pages/Photos";
+import SinglePhoto from "./pages/SinglePhoto";
+import CreatePhoto from "./pages/CreatePhoto";
+import EditPhoto from "./pages/EditPhoto";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { AuthProvider } from "./contexts/AuthContext";
 import LogIn from "./pages/Login";
 import PrivatePage from "./middleware/PrivatePage";
 import Categories from "./pages/Categories";
 import CreateCategory from "./pages/CreateCategory";
+import Contacts from "./pages/Contacts";
+import Messages from "./pages/Messages";
 
 function App() {
 
@@ -30,6 +32,8 @@ function App() {
               <Route path="/photos/:id" element={<SinglePhoto />} />
               <Route path="categories" element={<Categories />} />
               <Route path="/categories/create" element={<CreateCategory />} />
+              <Route path="contacts" element={<Contacts />} />
+              <Route path="messages" element={<Messages />} />
             </Route>
 
             {/* Rotte Private */}
