@@ -12,7 +12,7 @@ const defaultFormData = {
 export default function ({ initialData, onSubmit }) {
 
     const [categories, setCategories] = useState([]);
-    
+
     const [formData, setFormData] = useState(defaultFormData);
 
     const fetchCategories = async () => {
@@ -26,7 +26,7 @@ export default function ({ initialData, onSubmit }) {
     }, [])
 
     useEffect(() => {
-        if(initialData) {
+        if (initialData) {
             setFormData(initialData)
         }
     }, [initialData])
@@ -69,31 +69,30 @@ export default function ({ initialData, onSubmit }) {
             <div className="form-element">
                 <label><strong>Immagine:</strong></label>
                 <input
+                    className="custom-file-input"
                     type="file"
                     onChange={event => handleField('image', event.target.files[0])}
                 />
             </div>
 
             <div className="form-element">
-                <ul>
-                    <label><strong>Categorie:</strong></label>
-                    {categories.map(({ id, name }, index) => (
-                        <li key={index}>
-                            <input
-                                type="checkbox"
-                                checked={formData.categories.includes(id)}
-                                onChange={() => {
-                                    const current = formData.categories
-                                    const newCategories = current.includes(id) ?
-                                        current.filter(element => element !== id) :
-                                        [...current, id];
-                                    handleField('categories', newCategories)
-                                }}
-                            />
-                            {name}
-                        </li>
-                    ))}
-                </ul>
+                <h4>Categorie:</h4>
+                {categories.map(({ id, name }, index) => (
+                    <label className="checkbox" key={index}>{name}
+                        <input
+                            type="checkbox"
+                            checked={formData.categories.includes(id)}
+                            onChange={() => {
+                                const current = formData.categories
+                                const newCategories = current.includes(id) ?
+                                    current.filter(element => element !== id) :
+                                    [...current, id];
+                                handleField('categories', newCategories)
+                            }}
+                        />
+                        <span className="checkmark"></span>
+                    </label>
+                ))}
             </div>
 
             <div className="form-element">

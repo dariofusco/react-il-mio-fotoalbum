@@ -47,7 +47,10 @@ export default function () {
             <h1>Update Page</h1>
         </div>
 
-        <Link to="../" relative="path">Annulla</Link>
+        <button>
+            <Link to="../" relative="path">Annulla</Link>
+        </button>
+
         {dataToEdit !== null && <Form
             initialData={dataToEdit}
             onSubmit={updatePhoto}

@@ -31,7 +31,9 @@ export default function () {
             <h1>Create Category Page</h1>
         </div>
 
-        <Link to="../" relative="path">Annulla</Link>
+        <button>
+            <Link to="../" relative="path">Annulla</Link>
+        </button>
 
         <div>
             <form onSubmit={handleSubmit}>

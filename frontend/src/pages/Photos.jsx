@@ -43,8 +43,6 @@ export default function () {
             <h1>Index Page</h1>
         </div>
 
-        <Link to="/">Indietro</Link>
-
         <div>
             <h3>Cerca per titolo:</h3>
             <form className="search-bar" onSubmit={handleSubmit}>

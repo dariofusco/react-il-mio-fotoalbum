@@ -23,7 +23,9 @@ export default function () {
             <h1>Categories Page</h1>
         </div>
 
-        <Link to="/categories/create">Crea nuova categoria</Link>
+        <button>
+            <Link to="/categories/create">Crea nuova categoria</Link>
+        </button>
 
         <div>
             <ul>

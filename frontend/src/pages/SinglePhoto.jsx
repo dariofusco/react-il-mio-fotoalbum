@@ -28,7 +28,9 @@ export default function () {
             <h1>Show Page</h1>
         </div>
 
-        <Link to="/photos" relative="path">Indietro</Link>
+        <button>
+            <Link to="/photos" relative="path">Indietro</Link>
+        </button>
 
         {photo && <Card
             id={photo.id}
