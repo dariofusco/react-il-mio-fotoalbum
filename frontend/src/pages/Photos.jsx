@@ -18,6 +18,26 @@ export default function () {
         fetchPhoto();
     }, [])
 
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredPhotos, setFilteredPhotos] = useState([]);
+
+    const handleInputChange = (event) => {
+        const query = event.target.value;
+        setSearchQuery(query);
+        const filtered = photos.filter((photo) =>
+            photo.title.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredPhotos(filtered);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const filtered = photos.filter((photo) =>
+            photo.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredPhotos(filtered);
+    }
+
     return (<>
         <div>
             <h1>Index Page</h1>
@@ -25,12 +45,34 @@ export default function () {
 
         <Link to="/">Indietro</Link>
 
-        <ul>
-            {photos.map(photo => (
-                <li key={photo.id}>
-                    <Link to={`/photos/${photo.id}`}>{photo.title}</Link>
-                </li>
-            ))}
-        </ul>
+        <div>
+            <h3>Cerca per titolo:</h3>
+            <form className="search-bar" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                />
+                <button type="submit">Search</button>
+            </form>
+            <ul className="item-list">
+                {searchQuery === "" ? (
+                    photos.map(photo => (
+                        <li key={photo.id}>
+                            <Link to={`/photos/${photo.id}`}>{photo.title}</Link>
+                        </li>
+                    ))
+                ) : filteredPhotos.length > 0 ? (
+                    filteredPhotos.map((photo, index) => (
+                        <li key={index}>
+                            <Link to={`/photos/${photo.id}`}>{photo.title}</Link>
+                        </li>
+                    ))
+                ) : (
+                    <li>Nessuna foto con questo titolo</li>
+                )}
+            </ul>
+        </div>
     </>)
 }
