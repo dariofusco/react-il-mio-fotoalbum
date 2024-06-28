@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axiosClient";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Card from '../components/Card'
@@ -9,7 +9,7 @@ export default function () {
     const [photo, setPhoto] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/photos/${id}`)
+        axios.get(`/photos/${id}`)
             .then(res => {
                 setPhoto(res.data)
                 console.log(res.data);
@@ -19,7 +19,7 @@ export default function () {
     const navigate = useNavigate();
 
     const deletePhoto = async id => {
-        await axios.delete(`http://localhost:3000/photos/${id}`);
+        await axios.delete(`/photos/${id}`);
         navigate('/photos');
     }
 

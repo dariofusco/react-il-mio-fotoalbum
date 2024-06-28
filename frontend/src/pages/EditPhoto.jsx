@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axiosClient";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Form from "../components/Form";
@@ -12,7 +12,7 @@ export default function () {
     const [dataToEdit, setDataToEdit] = useState(null);
 
     const fetchDataToEdit = async () => {
-        const { data: p } = await axios.get(`http://localhost:3000/photos/${id}`);
+        const { data: p } = await axios.get(`/photos/${id}`);
         setDataToEdit({
             title: p.title,
             description: p.description,
@@ -31,7 +31,7 @@ export default function () {
 
     const updatePhoto = async formData => {
         console.log(formData);
-        const res = await axios.put(`http://localhost:3000/photos/${id}`, formData, {
+        const res = await axios.put(`/photos/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }

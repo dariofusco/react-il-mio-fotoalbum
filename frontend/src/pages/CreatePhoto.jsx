@@ -1,13 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Form from "../components/Form";
-import axios from "axios";
+import axios from "../utils/axiosClient";
 
 export default function () {
 
     const navigate = useNavigate();
 
     const createPhoto = async formData => {
-        const res = await axios.post('http://localhost:3000/photos', formData, {
+        const res = await axios.post(`/photos`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
