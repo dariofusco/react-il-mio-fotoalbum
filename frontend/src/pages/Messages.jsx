@@ -27,6 +27,7 @@ export default function () {
             <table>
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Email</th>
                         <th>Content</th>
                     </tr>
@@ -34,6 +35,7 @@ export default function () {
                 {messages.map(message => (
                     <tbody key={message.id}>
                         <tr>
+                            <td>{message.createdAt}</td>
                             <td>{message.email}</td>
                             <td>{message.content}</td>
                         </tr>

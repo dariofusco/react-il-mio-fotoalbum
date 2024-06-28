@@ -19,10 +19,12 @@ export default function ({ id, title, description, image, categories, visible, o
                 {categories.map((category, index) => (
                     <span className="badge" key={index}>{category.name}</span>
                 ))}
+                <div className="card-footer">
+                    <button>
+                        <Link to={`/photos/${id}/edit`}>Modifica</Link>
+                    </button>
 
-                <div>
-                    <Link to={`/photos/${id}/edit`}>Modifica</Link>
-                    <button onClick={deletePhoto}><FaTrashAlt /></button>
+                    <button className="delete" onClick={deletePhoto}><FaTrashAlt /></button>
                 </div>
             </div>
         </div>
